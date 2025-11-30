@@ -4,13 +4,21 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/include",
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/include/**"
             ],
-            "defines": [],
-            "compilerPath": "C:/Program Files/mingw64/bin/g++.exe",
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "g++",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "windows-gcc-x64"
+            "intelliSenseMode": "windows-gcc-x64",
+            "compilerArgs": [
+                "-Wall",
+                "-Wextra"
+            ]
         }
     ],
     "version": 4

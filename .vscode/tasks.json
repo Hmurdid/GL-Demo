@@ -7,21 +7,33 @@
             "command": "g++",
             "args": [
                 "-g",
-                "main.cpp",
-                "src/glad.c",
-                "-Iinclude",
-                "-Llib",
+                "-std=c++17",
+                "${workspaceFolder}/src/*.cpp",
+                "${workspaceFolder}/src/glad.c",
+                "-I${workspaceFolder}/include",
+                "-L${workspaceFolder}/lib",
                 "-lglfw3",
                 "-lopengl32",
                 "-lgdi32",
                 "-o",
-                "main.exe"
+                "${workspaceFolder}/build/main.exe"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "rm",
+            "args": ["-rf", "${workspaceFolder}/build/*"],
+            "problemMatcher": []
         }
     ]
 }
