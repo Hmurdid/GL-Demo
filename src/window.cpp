@@ -5,8 +5,7 @@
 Window::Window() {}; 
 
 Window::~Window() {
-    if(window) glfwDestroyWindow(window);
-    glfwTerminate();
+    if(window) {glfwDestroyWindow(window); glfwTerminate();}
 };
 
 int Window::initWindow() {
@@ -18,7 +17,7 @@ int Window::initWindow() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
-    GLFWwindow* window = glfwCreateWindow(800, 600, " ", NULL, NULL);
+    window = glfwCreateWindow(800, 600, " ", NULL, NULL);
     /* Creating window with:
     width: 800;
     heigh: 600;
