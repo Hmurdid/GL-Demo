@@ -28,7 +28,7 @@ public:
     void drawLine();
 
 private:
-    unsigned int VA0, VB0;
+    unsigned int VAO, VBO;
     unsigned int shaderProgram;
     float projectionMatrix[16];
     float r, g, b;
