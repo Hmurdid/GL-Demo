@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "window.hpp"
+#include "render.hpp"
 
 int main() {
     Window win;

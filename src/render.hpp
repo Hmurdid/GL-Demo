@@ -16,6 +16,7 @@ public:
 
     bool init();
     void cleanUp();
+    void createLineBuffers();
     void beginFrame();
     void endFrame();
     void setColor();
@@ -23,7 +24,6 @@ public:
     void compileShaders();
     void createShaderProgram();
     void setProjection();
-    void createLineBuffers();
     void updateBufferData();
     void drawLine();
 
