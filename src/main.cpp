@@ -7,9 +7,12 @@
 
 int main() {
     Window win;
-    if (win.initWindow() != 0) return -1;
+    Render render;
 
+    if (win.initWindow() != 0) return -1;
     GLFWwindow* window = win.getWindow();
+
+    render.init();
 
 
     // Головний цикл
