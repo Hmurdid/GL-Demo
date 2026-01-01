@@ -19,5 +19,13 @@ void Render::cleanUp() {
 };
 
 void Render::createLineBuffers() {
+    float verticesForFun[] = {
+        0.0f, 1.0f,
+        1.0f, 0.0f
+    };
+    unsigned int indices[] {
+        0, 1
+    };
+
     
 };

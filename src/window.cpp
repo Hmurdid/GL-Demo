@@ -34,6 +34,11 @@ int Window::initWindow() {
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) return -1;
 
     glViewport(0, 0, 800, 600);
+
+    glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height){
+        glViewport(0, 0, width, height); // автоматично масштабуємо сцену при ресайзі
+    });
+
     return 0;
 };
 
