@@ -4,7 +4,9 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/include",
-                "${workspaceFolder}/include/**"
+                "${workspaceFolder}/include/**",
+                "${workspaceFolder}/lib/imgui",
+                "${workspaceFolder}/lib/imgui/backends"
             ],
             "defines": [
                 "_DEBUG",
