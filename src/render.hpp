@@ -16,20 +16,26 @@ public:
 
     bool init();
     void cleanUp();
-    void createLineBuffers();
-    void beginFrame();
-    void endFrame();
-    void setColor();
+
+    void createLineBuffer(const float* vertices, size_t count, GLenum usage = GL_STATIC_DRAW);
+    void bindLineBuffer();
+    void unbindLineBuffer();
+
     void setupShaders();    
     void compileShaders();
     void createShaderProgram();
+
+    void beginFrame();
+    void endFrame();
+    
+    void setColor();
     void setProjection();
     void updateBufferData();
-    void drawLine();
 
 private:
-    unsigned int VAO, VBO, EBO;
+    unsigned int VAO, VBO;
     unsigned int shaderProgram;
     float projectionMatrix[16];
-    float r, g, b;
+    float x, y, z;
+    float r, g, b, a; 
 };
