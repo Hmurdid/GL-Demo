@@ -16,15 +16,17 @@ public:
 
     bool init(); //
     void cleanUp(); //
-    void createLineBuffer(const float* vertices, size_t count, GLenum usage = GL_STATIC_DRAW);  //
-    void bindLineBuffer(); //
-    void unbindLineBuffer(); //
+    void createTriangleBuffer(const float* vertices, size_t count, GLenum usage = GL_STATIC_DRAW);  //
     void setupShaders(); //
 
     void beginFrame();
     void endFrame();
     
-    void setColor(float r, float g, float b, float a); //
+    void drawTriangle();
+    void drawLine(const float* vertices, size_t count);
+    void drawParticle(const float* vertices, size_t count);
+
+    //void setColor(float r, float g, float b, float a);
     void setProjection();
     void updateBufferData();
 
@@ -34,6 +36,7 @@ private:
     float projectionMatrix[16];
     float x, y, z;
     float r, g, b, a;
-    
-    int ColorLocation;
+
+    size_t vertexCount;
+    //int ColorLocation;
 };

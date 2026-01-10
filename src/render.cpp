@@ -17,7 +17,8 @@ void Render::cleanUp() {
     glDeleteBuffers(1, &VBO);
 };
 
-void Render::createLineBuffer(const float* vertices, size_t count, GLenum usage) {
+void Render::createTriangleBuffer(const float* vertices, size_t count, GLenum usage) {
+    this-> vertexCount = count / 7;
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -25,36 +26,31 @@ void Render::createLineBuffer(const float* vertices, size_t count, GLenum usage)
     glBufferData(GL_ARRAY_BUFFER, count * sizeof(float), vertices, usage);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GL_FLOAT)));
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GL_FLOAT)));
     glEnableVertexAttribArray(1);
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 };
 
-void Render::bindLineBuffer() {
-    glBindVertexArray(VAO);
-}
-
-void Render::unbindLineBuffer() {
-    glBindVertexArray(0);
-}
-
 void Render::setupShaders() {
 
     const char* vertex_shader_source = 
         "#version 330 core\n"
         "layout(location = 0) in vec3 pos;\n"
+        "layout(location = 1) in vec4 col;\n"
+        "out vec4 vertexColor;\n"
         "void main() {\n"
         "    gl_Position = vec4(pos, 1.0);\n"
+        "    vertexColor = col;\n"
         "}\n";
 
     const char* fragment_shader_source = 
         "#version 330 core\n"
+        "in vec4 vertexColor;\n"
         "out vec4 FragColor;\n"
-        "uniform vec4 inputColor;\n"
         "void main() {\n"
-        "    FragColor = inputColor;\n"
+        "    FragColor = vertexColor;\n"
         "}\n";
 
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -84,9 +80,6 @@ void Render::setupShaders() {
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
 
-    //int PositionLocation = glGetUniformLocation(shaderProgram, "position");
-    int ColorLocation = glGetUniformLocation(shaderProgram, "inputColor");
-
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
     if (!success) {
         glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
@@ -97,7 +90,19 @@ void Render::setupShaders() {
     glDeleteShader(fragmentShader);
 } 
 
-void Render::setColor(float r, float g, float b, float a) {
-    this-> r = r; this-> g = g; this-> b = b; this-> a = a;
-    glUniform4f(ColorLocation, r, g, b, a);
+void Render::beginFrame() {
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glUseProgram(shaderProgram);
 }
+
+void Render::endFrame() {
+    // Empty for now. Sosal
+}
+
+void Render::drawTriangle() {
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+    glBindVertexArray(0);
+}
+
